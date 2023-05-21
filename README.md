@@ -646,6 +646,4 @@ print("weight in kilograms is now:", weight_kg)
 
 
 
-```python
 
-```
