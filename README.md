@@ -4,7 +4,7 @@ BISC 450C
 
 
 
-
+## Jupyter NoteBooks 1-2
 ```python
 %matplotlib inline
 import pandas as pd
