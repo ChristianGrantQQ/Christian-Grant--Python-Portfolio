@@ -1181,6 +1181,7 @@ print(numpy.mean(data))
 ```python
 maxval, minval, stdvat = numpy.amax(data), numpy.std(data)
 
+print('maximum inflammation:', maxval)
 ```
 
 
