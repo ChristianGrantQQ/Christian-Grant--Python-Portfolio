@@ -1184,9 +1184,9 @@ maxval, minval, stdval = numpy.amax(data), numpy.amin(data), numpy.std(data)
 print('maximum inflammation:', maxval)
 ```
 
-'''python
-maximum inflammation: 20.0
-'''
+    maximum inflammation: 20.0
+
+
 
 
 ```python
