@@ -2115,3 +2115,471 @@ def std_dev(sample):
 
 
 ## Errors
+
+```
+
+    hello
+
+
+
+```python
+count = 0
+for number in range(10):
+    count = count + number
+print('The count is:', count)
+```
+
+    The count is: 45
+
+
+
+```python
+letters = ['a', 'b', 'c']
+print('Letter #1 is', letters[0])
+print('Letter #2 is', letters[1])
+print('Letter #3 is', letters[2])
+#print('Letter #4 is', letters[3])
+```
+
+    Letter #1 is a
+    Letter #2 is b
+    Letter #3 is c
+
+
+
+```python
+file_handle = open('myfile.txt', 'w')
+```
+
+
+
+
+## Defensive Programming
+
+```python
+numbers = [1.5, 2.3, 0.7, -0.001, 4.4]
+total = 0.0
+for num in numbers:
+    assert num > 0.0, 'Data should only contain positive values'
+    total += num
+print('total is:', total)
+```
+
+
+    ---------------------------------------------------------------------------
+
+    AssertionError                            Traceback (most recent call last)
+
+    <ipython-input-3-13c7d5640ddd> in <module>
+          2 total = 0.0
+          3 for num in numbers:
+    ----> 4     assert num > 0.0, 'Data should only contain positive values'
+          5     total += num
+          6 print('total is:', total)
+
+
+    AssertionError: Data should only contain positive values
+
+
+
+```python
+numbers = [1.5, 2.3, 0.7, -0.001, 4.4]
+total = 0.0
+for num in numbers:
+    assert num > 0.0, 'Data should only contain positive values'
+    total += num
+print('total is:', total)
+
+```
+
+
+    ---------------------------------------------------------------------------
+
+    AssertionError                            Traceback (most recent call last)
+
+    <ipython-input-1-13c7d5640ddd> in <module>
+          2 total = 0.0
+          3 for num in numbers:
+    ----> 4     assert num > 0.0, 'Data should only contain positive values'
+          5     total += num
+          6 print('total is:', total)
+
+
+    AssertionError: Data should only contain positive values
+
+
+
+```python
+def normalize_rectangle(rect):
+    """Normalizes a rectangle so that it is at the origin and 1.0 units long on its longest axis.
+    Input should be of the format (x0, y0, x1, y1).
+    (x0, y0) and (x1, y1) define the lower left and upper right corners
+    of the rectangle, respectively."""
+    assert len(rect) == 4, 'Rectangles must contain 4 coordinates'
+    x0, y0, x1, y1 = rect
+    assert x0 < x1, 'Invalid X coordinates'
+    assert y0 < y1, 'Invalid Y coordinates'
+
+    dx = x1 - x0
+    dy = y1 - y0
+    if dx > dy:
+        scaled = dx / dy
+        upper_x, upper_y = 1.0, scaled
+    else:
+        scaled = dx / dy
+        upper_x, upper_y = scaled, 1.0
+
+    assert 0 < upper_x <= 1.0, 'Calculated upper X coordinate invalid'
+    assert 0 < upper_y <= 1.0, 'Calculated upper Y coordinate invalid'
+
+    return (0, 0, upper_x, upper_y)
+```
+
+
+```python
+print(normalize_rectangle( (0.0, 1.0, 2.0) )) # missing the fourth coordinate
+```
+
+
+    ---------------------------------------------------------------------------
+
+    AssertionError                            Traceback (most recent call last)
+
+    <ipython-input-3-1b9cd8e18a1f> in <module>
+    ----> 1 print(normalize_rectangle( (0.0, 1.0, 2.0) )) # missing the fourth coordinate
+    
+
+    <ipython-input-2-baa02f15189e> in normalize_rectangle(rect)
+          4     (x0, y0) and (x1, y1) define the lower left and upper right corners
+          5     of the rectangle, respectively."""
+    ----> 6     assert len(rect) == 4, 'Rectangles must contain 4 coordinates'
+          7     x0, y0, x1, y1 = rect
+          8     assert x0 < x1, 'Invalid X coordinates'
+
+
+    AssertionError: Rectangles must contain 4 coordinates
+
+
+
+```python
+print(normalize_rectangle( (4.0, 2.0, 1.0, 5.0) )) # X axis inverted
+```
+
+
+    ---------------------------------------------------------------------------
+
+    AssertionError                            Traceback (most recent call last)
+
+    <ipython-input-4-325036405532> in <module>
+    ----> 1 print(normalize_rectangle( (4.0, 2.0, 1.0, 5.0) )) # X axis inverted
+    
+
+    <ipython-input-2-baa02f15189e> in normalize_rectangle(rect)
+          6     assert len(rect) == 4, 'Rectangles must contain 4 coordinates'
+          7     x0, y0, x1, y1 = rect
+    ----> 8     assert x0 < x1, 'Invalid X coordinates'
+          9     assert y0 < y1, 'Invalid Y coordinates'
+         10 
+
+
+    AssertionError: Invalid X coordinates
+
+
+
+```python
+print(normalize_rectangle( (0.0, 0.0, 1.0, 5.0) ))
+```
+
+    (0, 0, 0.2, 1.0)
+
+
+
+```python
+print(normalize_rectangle( (0.0, 0.0, 5.0, 1.0) ))
+```
+
+
+    ---------------------------------------------------------------------------
+
+    AssertionError                            Traceback (most recent call last)
+
+    <ipython-input-6-8d4a48f1d068> in <module>
+    ----> 1 print(normalize_rectangle( (0.0, 0.0, 5.0, 1.0) ))
+    
+
+    <ipython-input-2-baa02f15189e> in normalize_rectangle(rect)
+         19 
+         20     assert 0 < upper_x <= 1.0, 'Calculated upper X coordinate invalid'
+    ---> 21     assert 0 < upper_y <= 1.0, 'Calculated upper Y coordinate invalid'
+         22 
+         23     return (0, 0, upper_x, upper_y)
+
+
+    AssertionError: Calculated upper Y coordinate invalid
+
+
+
+```python
+def range_overlap(ranges):
+    pass
+```
+
+
+```python
+assert range_overlap([ (0.0, 1.0) ]) == (0.0, 1.0)
+assert range_overlap([ (2.0, 3.0), (2.0, 4.0) ]) == (2.0, 3.0)
+assert range_overlap([ (0.0, 1.0), (0.0, 2.0), (-1.0, 1.0) ]) == (0.0, 1.0)
+```
+
+
+    ---------------------------------------------------------------------------
+
+    AssertionError                            Traceback (most recent call last)
+
+    <ipython-input-9-dc16b942c085> in <module>
+    ----> 1 assert range_overlap([ (0.0, 1.0) ]) == (0.0, 1.0)
+          2 assert range_overlap([ (2.0, 3.0), (2.0, 4.0) ]) == (2.0, 3.0)
+          3 assert range_overlap([ (0.0, 1.0), (0.0, 2.0), (-1.0, 1.0) ]) == (0.0, 1.0)
+
+
+    AssertionError: 
+
+
+
+```python
+assert range_overlap([ (0.0, 1.0), (5.0, 6.0) ]) == ???
+```
+
+
+      File "<ipython-input-10-4608414687ac>", line 1
+        assert range_overlap([ (0.0, 1.0), (5.0, 6.0) ]) == ???
+                                                            ^
+    SyntaxError: invalid syntax
+
+
+
+
+```python
+assert range_overlap([ (0.0, 1.0), (1.0, 2.0) ]) == ???
+```
+
+
+      File "<ipython-input-11-b9d32ea0ef23>", line 1
+        assert range_overlap([ (0.0, 1.0), (1.0, 2.0) ]) == ???
+                                                            ^
+    SyntaxError: invalid syntax
+
+
+
+
+```python
+assert range_overlap([ (0.0, 1.0), (5.0, 6.0) ]) == None
+assert range_overlap([ (0.0, 1.0), (1.0, 2.0) ]) == None
+```
+
+
+```python
+def range_overlap(ranges):
+    """Return common overlap among a set of [left, right] ranges."""
+    max_left = 0.0
+    min_right = 1.0
+    for (left, right) in ranges:
+        max_left = max(max_left, left)
+        min_right = min(min_right, right)
+    return (max_left, min_right)
+```
+
+
+```python
+def test_range_overlap():
+    assert range_overlap([ (0.0, 1.0), (5.0, 6.0) ]) == None
+    assert range_overlap([ (0.0, 1.0), (1.0, 2.0) ]) == None
+    assert range_overlap([ (0.0, 1.0) ]) == (0.0, 1.0)
+    assert range_overlap([ (2.0, 3.0), (2.0, 4.0) ]) == (2.0, 3.0)
+    assert range_overlap([ (0.0, 1.0), (0.0, 2.0), (-1.0, 1.0) ]) == (0.0, 1.0)
+    assert range_overlap([]) == None
+```
+
+
+```python
+test_range_overlap()
+```
+
+
+    ---------------------------------------------------------------------------
+
+    AssertionError                            Traceback (most recent call last)
+
+    <ipython-input-19-80290759369d> in <module>
+    ----> 1 test_range_overlap()
+    
+
+    <ipython-input-15-2c8841db23c8> in test_range_overlap()
+          1 def test_range_overlap():
+    ----> 2     assert range_overlap([ (0.0, 1.0), (5.0, 6.0) ]) == None
+          3     assert range_overlap([ (0.0, 1.0), (1.0, 2.0) ]) == None
+          4     assert range_overlap([ (0.0, 1.0) ]) == (0.0, 1.0)
+          5     assert range_overlap([ (2.0, 3.0), (2.0, 4.0) ]) == (2.0, 3.0)
+
+
+    AssertionError: 
+    
+    
+    
+    
+    
+    ## Transcribing DNA into RNA
+    
+    ```python
+# Prompt the user to enter the input fasta file name
+
+input_file_name = input("Enter the name of the input fasta file: ")
+```
+
+    Enter the name of the input fasta file:  sequence.txt
+
+
+
+```python
+# Open the input fasta file and read the DNA sequence
+
+with open(input_file_name, 'r') as input_file:
+    dna_sequence = ''
+    for line in input_file:
+        if line.startswith('>'):
+            continue
+        dna_sequence += line.strip()
+```
+
+
+```python
+# Transcribe the DNA to RNA
+rna_sequence = ''
+for nucleotide in dna_sequence:
+    if nucleotide == 'T':
+        rna_sequence += 'U'
+    else:
+        rna_sequence += nucleotide
+```
+
+
+```python
+# Prompt the user to enter the output file name
+
+output_file_name = input('Enter the name of the output file:')
+```
+
+    Enter the name of the output file: Ubiquitin_RNA.txt
+
+
+
+```python
+# Save the RNA sequence to a text file
+
+with open(output_file_name, 'w') as output_file:
+    output_file.write(rna_sequence)
+    print('The RNA sequence has been saved to (output_file_name)')
+```
+
+    The RNA sequence has been saved to (output_file_name)
+
+
+
+```python
+print(rna_sequence)
+```
+
+    AUGUCUGACGAAAAGAAGGGAGGUGAGACCGAGCACAUCAACCUGAAGGUCCUCGGCCAGGACAACGCCGUCGUCCAGUUCAAGAUCAAGAAGCACACACCCUUGAGGAAGCUGAUGAACGCCUACUGCGACCGUGCCGGACUCUCCAUGCAGGUGGUGCGCUUCCGUUUCGACGGACAGCCCAUCAACGAGAACGACACUCCGACCUCGCUGGAGAUGGAGGAGGGCGACACCAUCGAGGUUUACCAGCAGCAGACUGGUGGCGCUCCAUAAAUGUCUGACGAAAAGAAGGGAGGUGAGACCGAGCACAUCAACCUGAAGGUCCUCGGCCAGGACAACGCCGUCGUCCAGUUCAAGAUCAAGAAGCACACACCCUUGAGGAAGCUGAUGAACGCCUACUGCGACCGUGCCGGACUCUCCAUGCAGGUGGUGCGCUUCCGUUUCGACGGACAGCCCAUCAACGAGAACGACACUCCGACCUCGCUGGAGAUGGAGGAGGGCGACACCAUCGAGGUUUACCAGCAGCAGACUGGUGGCGCUCCAUAA
+
+
+
+
+## Translating RNA into Protein
+
+```python
+# Prompt user to enter the input file name
+
+input_file_name = input('input the name of the input RNA file:')
+```
+
+    input the name of the input RNA file: Ubiquitin_RNA.txt
+
+
+
+```python
+# Open the input RNA file and read the RNA sequence
+
+with open(input_file_name, 'r') as input_file:
+    rna_sequence = input_file.read().strip()
+```
+
+
+```python
+#Define the codon table
+
+codon_table = {
+    "UUU": "F", "UUC": "F", "UUA": "L", "UUG":"L",
+    "CUU": "L", "CUC": "L", "CUA": "L", "CUG":"L",
+    "AUU": "I", "AUC": "I", "AUA": "I", "AUG":"M",
+    "GUU": "V", "GUC": "V", "GUA": "V", "GUG":"V",
+    "UCU": "S", "UCC": "S", "UCA": "S", "UCG":"S",
+    "CCU": "P", "CCC": "P", "CCA": "P", "CCG":"P",
+    "ACU": "T", "ACC": "T", "ACA": "T", "ACG":"T",
+    "GCU": "A", "GCC": "A", "GCA": "A", "GCG":"A",
+    "UAU": "Y", "UAC": "Y", "UAA": "*", "UAG":"*",
+    "CAU": "H", "CAC": "H", "CAA": "Q", "CAG":"Q",
+    "AAU": "N", "AAC": "N", "AAA": "K", "AAG":"K",
+    "GAU": "D", "GAC": "D", "GAA": "E", "GAG":"E",
+    "UGU": "C", "UGC": "C", "UGA": "*", "UGG":"W",
+    "CGU": "R", "CGC": "R", "CGA": "R", "CGG":"R",
+    "AGU": "S", "AGC": "S", "AGA": "R", "AGG":"R",
+    "GGU": "G", "GGC": "G", "GGA": "G", "GGG":"G",
+    
+}
+```
+
+
+```python
+# Translate RNA to protein
+
+protein_sequence = ''
+for i in range(0, len(rna_sequence), 3):
+    codon = rna_sequence[i:i+3]
+    if len(codon) == 3:
+        amino_acid = codon_table[codon]
+        if amino_acid == '*':
+            break
+        protein_sequence += amino_acid
+```
+
+
+```python
+# Prompt the user to enter the output file name
+
+output_file_name = input('Enter the name of the output file:')
+```
+
+    Enter the name of the output file: Ubiquitin_Protein.txt
+
+
+
+```python
+# Save the protein sequence in a text file
+
+with open(output_file_name, 'w') as output_file:
+    output_file.write(protein_sequence)
+    print(f'The protein sequene has been saved to {output_file_name}')
+```
+
+    The protein sequene has been saved to Ubiquitin_Protein.txt
+
+
+
+```python
+print(protein_sequence)
+```
+
+    MSDEKKGGETEHINLKVLGQDNAVVQFKIKKHTPLRKLMNAYCDRAGLSMQVVRFRFDGQPINENDTPTSLEMEEGDTIEVYQQQTGGAP
+
+That should be all of it, I did just about everything on the Praxis site.
+Loved your videos!
