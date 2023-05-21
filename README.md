@@ -1184,17 +1184,9 @@ maxval, minval, stdval = numpy.amax(data), numpy.amin(data), numpy.std(data)
 print('maximum inflammation:', maxval)
 ```
 
-
-    ---------------------------------------------------------------------------
-
-    ValueError                                Traceback (most recent call last)
-
-    <ipython-input-20-f78e1858f1ba> in <module>
-    ----> 1 maxval, minval, stdvat = numpy.amax(data), numpy.std(data)
-    
-
-    ValueError: not enough values to unpack (expected 3, got 2)
-
+'''python
+maximum inflammation: 20.0
+'''
 
 
 ```python
